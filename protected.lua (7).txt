@@ -1,0 +1,149 @@
+-- Polyglot Protected Script (Lua 5.1)
+if not bit32 then bit32 = {} end
+if not bit32.bxor then
+    bit32.bxor = function(a, b)
+        local r, bitv = 0, 1
+        while a > 0 or b > 0 do
+            local ab, bb = a % 2, b % 2
+            if ab ~= bb then r = r + bitv end
+            a = (a - ab) / 2
+            b = (b - bb) / 2
+            bitv = bitv * 2
+        end
+        return r
+    end
+end
+if not loadstring then loadstring = load end
+
+local Vem8uKKwzB = {
+    ["A"]=0,["B"]=1,["C"]=2,["D"]=3,["E"]=4,["F"]=5,["G"]=6,["H"]=7,
+    ["I"]=8,["J"]=9,["K"]=10,["L"]=11,["M"]=12,["N"]=13,["O"]=14,["P"]=15,
+    ["Q"]=16,["R"]=17,["S"]=18,["T"]=19,["U"]=20,["V"]=21,["W"]=22,["X"]=23,
+    ["Y"]=24,["Z"]=25,["a"]=26,["b"]=27,["c"]=28,["d"]=29,["e"]=30,["f"]=31,
+    ["g"]=32,["h"]=33,["i"]=34,["j"]=35,["k"]=36,["l"]=37,["m"]=38,["n"]=39,
+    ["o"]=40,["p"]=41,["q"]=42,["r"]=43,["s"]=44,["t"]=45,["u"]=46,["v"]=47,
+    ["w"]=48,["x"]=49,["y"]=50,["z"]=51,["0"]=52,["1"]=53,["2"]=54,["3"]=55,
+    ["4"]=56,["5"]=57,["6"]=58,["7"]=59,["8"]=60,["9"]=61,["+"]=62,["/"]=63,
+}
+
+local Eo1yHlkd60 = "αβγδεζηθικλμνξοπρστυφχψω的一是不了人我在有他这为之大来以个中上们कखगघचछजझटठडढणतथदधनपफबभमयरलवशषसह"
+local function bpSE5Y_mzu(encoded, key)
+    local clean = {}
+    local ci = 0
+    local n = #encoded
+    local kk = 1
+    while kk <= n do
+        local byte1 = string.byte(encoded, kk)
+        if byte1 and byte1 < 128 and Eo1yHlkd60:find(encoded:sub(kk, kk), 1, true) == nil then
+            ci = ci + 1
+            clean[ci] = encoded:sub(kk, kk)
+            kk = kk + 1
+        elseif byte1 and byte1 < 128 then
+            kk = kk + 1
+        else
+            if byte1 >= 240 then kk = kk + 4
+            elseif byte1 >= 224 then kk = kk + 3
+            elseif byte1 >= 192 then kk = kk + 2
+            else kk = kk + 1 end
+        end
+    end
+    local cleaned = table.concat(clean):gsub('=', '')
+    local bytes = {}
+    local bn = 0
+    local p = 1
+    local clen = #cleaned
+    while p <= clen do
+        local c1 = Vem8uKKwzB[cleaned:sub(p, p)] or 0
+        local c2 = Vem8uKKwzB[cleaned:sub(p + 1, p + 1)] or 0
+        local c3raw = cleaned:sub(p + 2, p + 2)
+        local c4raw = cleaned:sub(p + 3, p + 3)
+        local c3 = Vem8uKKwzB[c3raw]
+        local c4 = Vem8uKKwzB[c4raw]
+        local b1 = (c1 * 4) + math.floor(c2 / 16)
+        bn = bn + 1; bytes[bn] = b1 % 256
+        if c3 ~= nil then
+            local b2 = ((c2 % 16) * 16) + math.floor(c3 / 4)
+            bn = bn + 1; bytes[bn] = b2 % 256
+            if c4 ~= nil then
+                local b3 = ((c3 % 4) * 64) + c4
+                bn = bn + 1; bytes[bn] = b3 % 256
+            end
+        end
+        p = p + 4
+    end
+    local klen = #key
+    local out = {}
+    for idx = 1, bn do
+        local kchar = key:byte(((idx - 1) % klen) + 1)
+        out[idx] = string.char(bit32.bxor(bytes[idx], kchar))
+    end
+    return table.concat(out)
+end
+
+local UwoIMBmTtm = "X9BJuc6fBTEFVTy$8CMPR9J5pmTNDWSSJ6s6bsfTzPu-)EQRCdBGZ=fJb8cXlbB4"
+local function kawWiNupbo(salt, length)
+    local mb = {}
+    for i = 1, #UwoIMBmTtm do mb[i] = UwoIMBmTtm:byte(i) end
+    local n = #mb
+    local out = {}
+    for j = 0, length - 1 do
+        local idx = ((salt + j) % n) + 1
+        local v = (mb[idx] + salt * 7 + j * 3) % 95 + 32
+        out[j + 1] = string.char(v)
+    end
+    return table.concat(out)
+end
+
+local HfVddGozfE = kawWiNupbo(1000, 48)
+local zhT1dek_C8 = {}
+for uZgkfIzCtmk = 1, 10 do
+    zhT1dek_C8[uZgkfIzCtmk] = kawWiNupbo(uZgkfIzCtmk, 48)
+end
+
+S8xkb4gt45 = {
+    [0] = bpSE5Y_mzu("LDझ他kcझ的γ我QVठदहछIkढηFg了θκ==σ大दढ的", HfVddGozfE),
+    [1] = bpSE5Y_mzu("Li中फशκATज不यa1有λIkष为Ewη了A+π大मχछRwε了ष有ख==θझन", HfVddGozfE),
+    [2] = bpSE5Y_mzu("Liज上νζATψ为来中πa1来这的αIkटυοथEw是ढA+βलRwहखछκε==णय个र", HfVddGozfE),
+    [3] = bpSE5Y_mzu("FCभपजEJढसχSEυख了一RsभधSkवहफपφYu们有श中SxखχζघδAD了णδVBपοथरUdधκρξ一FFη们λADय之为SR人在是झ大s5的他लपβJV为ο之δχ4d以झKkζκζ为οJfχजλWg一डझ为==εर", HfVddGozfE),
+    [4] = bpSE5Y_mzu("MSαठxdβपध以घf1ठ在来θY7र有दδAEτस在च这kVξछνहVwπबα不θA=个ड", HfVddGozfE),
+    [5] = bpSE5Y_mzu("MDबθoc上ζβαXF之झव44द这णAk为之dzο了以DA上ज==व大द是上", HfVddGozfE),
+    [6] = bpSE5Y_mzu("Ljοयफξ个QEζश这गωXl不मλज4zνσ了ζ是CQक为δν19υξ的बαdyगढs=टवδ", HfVddGozfE),
+    [7] = bpSE5Y_mzu("MSρतw6θषδन我WVलτण的ozनग", HfVddGozfE),
+    [8] = bpSE5Y_mzu("LzπतAJनबχTF有的धζ44以ψठυAhटटα个εo=τμ在大", HfVddGozfE),
+    [9] = bpSE5Y_mzu("LDतघkc来τरQVιरथभIkसψβκδ", HfVddGozfE),
+    [10] = bpSE5Y_mzu("NDρβठ他ζARεड的VF个जγυg=之जफοβ", HfVddGozfE),
+    [11] = bpSE5Y_mzu("NDढच在लARπ他不有VFखष的ωh2πछψ他धAxशणsyσलT0षषI4σρ为मQBοकजυ9VζιEF这ζξABचξWBθ的U=ξ一", HfVddGozfE),
+    [12] = bpSE5Y_mzu("KzधξधजबQR来λपαU2टχष们बQm中लAAθकथw5τσ上上", HfVddGozfE),
+    [13] = bpSE5Y_mzu("Kz的δγधQRव为人लU2धटαQmषσ中AAढखw5有शवषण", HfVddGozfE),
+    [14] = bpSE5Y_mzu("NC以大ρलAQβ人个χणWVलगιपγk5在स个是DA在ट0=πसड", HfVddGozfE),
+    [15] = bpSE5Y_mzu("pPξद+kπल这在vR的之χνeOलβ他η中wrहग来χρDZ以με+sμबगiyζ个lbव上मछ6Jथझ个ढoLव有दζμ+0सρuA们ηλ来α==之द", HfVddGozfE),
+    [16] = bpSE5Y_mzu("pdलझ2lशव个ढn+ब来φछ/6这ψvO大λοढ6Fवणγλi0人σι大一I4फदछ是ηQB他χह9Vषठ上EF在बसजAB一पWBरहδST中न4/ιγυ/Pक不m4之लव为3rνधhLरδध的XZ大ढछ有ष68ग之ढथ是xlवबguρφχ不aL有我47τयखव他6Dυष是ल5Pछφ个S5φट在भटw1νगब了o=झο", HfVddGozfE),
+}
+
+local ADySKaLQUW = {
+    bpSE5Y_mzu("akνμरη个Fa的भσक人Zg之व的टpR他υfUζ大γσतMJζतलखFQπ大यxvथ不有οLwξद不QM有η我Slषξ们人cnφझ我भOnमξNtदसI1मψणψणAJ了为ρωषGA上तQQ是ठष人ξNB大षश有wcχशरVSβπत来ξM/छπζ是Rgकछ之वFGचटφνaBसडसचZuढज之LUग有धघतU2νδρ们XjषβVXढय们Lyωषσ个BL人बARψλgSरκιβIh个一以θत5MπδfU上不ψ是υMJυ的हFRψτιECφ一个थSg了πटQaहयटTlपξबवτok以αषbgकχढFpनξ上ιशMn们为खपछ4i在以CAवεIKडखCkषμλZS不ह他SEनμα8lव的Qmयब4+ढζπφ了ZRρ这सMPθπcAखथ我οNs人一Xk中गमAGतप之不णaGझ这个wZνसαलuMιπuuग这wuवπχ们α/GωζπफmN以हथτPtζधहqvξचW9κकYLωडζHw之ब在9L是上1oण大थlvढखvkक人中在फ2+σζ上ιबfbमυpcठज5Eο个这hc了λरλनKr们πश/b一θf2λ了ε不ज5uजणε之बDtथξबwOढछभψesτγξषgIειJ5γ中धν有q9来करछ了Xr以गηxZκठ2Uझμλπueर以κλ6u的个τटबzOθठβ7u之जmf人क来TsζαgSνλ一ξ以ZTκयLwकεsUυ了ηQRचबψजsu在上Ozαφधष1eωय为JVठबYS有这中यE0们खceλभषεणEhσपδYB一了डLxढषκषY5μσαक的YC一大pH为सιछYBφμι是clεगखeBन来F5一रωUxκφ上我ह5dρलIiपशदRV以η来रηQBत来gdλωषκμJFवωωशछ1d有ριOk有बο大xwβηWxढ的ग8fझदαfU他不gF为क以डTl为θ中不ζok来फ个In大来tbनमझJFβ大为οEeμबCQν他4LθभξM1ι来在α在tbιछλ之f0δ个9+भη以ηγH0दटQUग这aB们ρξधध4Pडρ是之Klμ了ν一Qt一खलसBgψ这个δBcσवκYSलनल之φJY中我भDQन之这झχlNषछφAV大दIY来来णλEx我डνtGशभ是Xkपψ在लVcठखμ一वJU大वγAqझτ这ह不fXρनमग他wQ不我人EQटढ了θBi了λYWघसBUशδजψβXQμललहयYKψस们来OVध有τ为υMV人मFAहκI7以οτBS了一सψιNRαढPG在य之有ζ1KजρKkηसξcwη不之EBशυडcaकεπढवHhσ有V+πθ大जODλमζMkλघφGQ之βशचεYzशδδ来ζaXθग他QU他कCAω是गहwfषυαJQरτभYR来र有有ζBDωαFoμ在κbnιथπ的लMdο有κηOFवतldλकEwαसβgQεζयθfQφ个之cYβλαब中Fwω个们धVv个थ不RVλधलνZwढदμOwबडδ0PषλLF上र他δk8छθHVγणJAδछJD之श们γνFM们βαωEgωढशβ大JX一α人IFझहझκYAल在खछMxλννσ们sUζ不这TU大他Jb来λतSm我यJV以शρसDR中णखरtoडफIjझघxeμणηडचMF他中फ们घNd的ιEh中τ了不मcrपखधξFkयζठcKε人χOxσछदषψpuσब上V0द是सठεQJ一σaFर有κ有hOσदतλकNEचβθI8छ一的eVρभISι这人我YWχमVJψ了Awपθ0bझजυλτKhδυ8Kफ们ιξNR上χBXपण", zhT1dek_C8[1]),
+    bpSE5Y_mzu("BBβधधनडIlब中来VVढहढht在有个त以KRγबηभ为gMγ了EGχυदहμNkωρ以TFι不शkRαπमθUDथधढwdφसछHH为ध一Ut的们以他DVखघछपcSन来बभA0घथhcκ人Vx一大个द来EYζ上φघHgιन中d5他तL1αζग04भगथ是EVल在Yuखυ中झQzटबηभQU个他Ex个γ们4aην这νGX个चξo5κफυLyडषचgVω有不ξCS为κρ9t的ψ有不χGXढणωFf以रYzवपकcx以चCBमγβफBeοल个们一F2β我δVYηस来ν我d2धक大तF1我人Y0为κकजनdMब以D0之θखहFrल在这V1βझणλथZZझयथζUwσο为slछσठ这शSFहιυ们c8भ中थDXसρछफचhoहजTR为π了ρ这MCबघσढφRlωष5lप大PVफझठηUE他ζHlμοबजγs4धचγXgट们Qxδθ这UV不人有दκYM我之δViदσपIo他ढδधHxχκwRκαWiभμ个लदI2कκπ一XUछτ的गलt1द为Yw来α是μICयठμBwर为λοगcCहयφ们Fh中ωय中κpZफ们Nh一大之中θgaगघच们EWαफ来kmमप大这KXξ我ζषwpढग有छZnημद我的1Kαडλ上VlχखgsρυξJTλτझटdBωटगιUF个οयनtqलभπιSxब中αMlφχωT1η大不QEम为为गVjε之छξYqट中Dwμπडश大1Yथ他εUCणच大J6म个fm有डपEQω为我ωशOXωι上tb个बनOgहω了IKπ的为षOAδ以MqमγεU1रψव有भ9jυψचξ大D1फमkhर他ω上不Jxτदगμ0M们以之θWTρ一दटटwUभछ一E3ηε8hझधaVशव们gPυιοFF上大κJAछथ上गG1क人πBkन为ρतA1εचFKλगECηख他了0rκ之αGF上ψदl0个αनRRκο有αUrछमBiθδs+以βणθजDF来ढοकυdxजक以我SwणहcTζκ了的这Vzबκध们MDस是πKh一的झsSι在फनψAl为γमड在MDतρलशN2为णच一B8大वζ一CG以ωδदBXषωसमRh人在ροβYxझ我ख他रIVη大धतgPक为ξUAφफkvकचTwबθतय的U2以θभषπTRपछζझυhKमगUS以स83ελCV个αlUतघUSσट个hYतजοXW上स不रपF1जदभωचYwछ他φJQनκझο上Dhठ人μसξwUस一BRतω大大hZφδनसBx一हυ之中A2वθστतDTध中भζIpरगटαवLFηहब一τdWυη以P3णδव人BaεπθVhड来一50शरछορYgχ一这ψषxIठ不घWVυλuTकधभषuK这फεचकnMछ了中大+5了ιιcMι们中जझ6cο了ζιमudυर个是66λ之C0大ηठत5sन不चशZyκ这αनξj+了ε来डजSNछयν8/个ρρलqF不这S7डφιHk大个τ这rvघ们5Z有πस一भq8ων他बझ2b是ठठतφz+η的个μDiमग为m7घकd8भη有र的7e们λξ个αyu以र以α/uठ一π7tβयर以为kLνटm4有θκ+Kफपटभ大LJजλ在β48म们以झNOलखSl他之χ4Mग了ठυहXi个中टθwwβच的在तTAιमμटN+有δषदWjαह8I是झLi是有ल为YKपजDV以是之是的EKθ为μ一Qk一来οgV他之Hx之βन一MXα他一eUडदय大χJjβठ他β中SBतमखफχggε不स个टLVलटτA9大们यνWX之घषδश0Dस以HmगणωρचMUτव个EA人θधडχsz是पKBλχजQ9εशश这G0ण了υθ他0=ज了λव", zhT1dek_C8[2]),
+    bpSE5Y_mzu("ACच我在hKझवκχकGiदटtTधσξVVεηझर9a的थ为र有b2γहजठचF6द来XRदοसVjछωनरचcHकसशजZ7了फZXषσकαkr他णSUयξχछपUOιढजAEψषγιपUs他भ上ωωHkस上0gहθकω有JBυοखQG大他हफमdgपभवधपANθभF1झष们γप0ZससμजGgहλδφχZwजध他ταGmसπ上lt以दτδYUλδγVmχचतAGछ来β5Zη中υतGz来φνoHκηγयλVR这在AJतणZ2人ड上BCρ在थThπζ了hxडबक来Yn是ξडθ93为上जZXयσF+πठEwψ人प这घtbफहυ上WUझ人κφगxb中गοπ我HhκछखचघJXटध为MSχ们我他घNc他ζखaxधणशIVढहफXSυ在चहपpp在धKiजबकATठθ之Z2ह人们lwζ人षσαYQजसιxmψ有ρCm了ν之χ人4XषυβRmझτIWटछ来छFRदδमषढBRछद他KS个大ρκx6不θφXRξक这以οVjδढडcHव有थZ7了थZX这这φk1们हधQ1δα有धठIaघगयHg了ह中为हtbμνछωWSटζ之धमoTध他λ大VhνζगAuγ以的在bzडτछढथoM中γφZyय中们घηszख他QVमठठtaσημ来Gi的了一झwjह有त中σJW大हथ9mζमझAGट一φ4fκ是这λυACशढ一的दByωιछδलbWरοkCथδFR大οषछAfठषδChछηधप1qचυWnक我Z7χजZXबगटk1ध的ग我Q1他们αIaजफβ之Hgघ以以txभβHxλथMTच有αबbEहछ人छ有1B之छγλEXθτ在Buτ的人以BEलथमεsJबδSFसξवζJaघथρम他4uρशεSUलβ中μढxLθψह3h的टथ上+c为वधTn这τप3Wजωजχधj+γमueथ们myझτधλωZw了κμkeस来ठζλCVηढxuωवBDτ在ωडसc2ωυ是NTभλw1υफ他ग的LEνसIAज是θZkφभझVb人为κWlथर个थμ0bजτCS人मQNφबUHबηडभAyνγतfz有以λVUθφαοCRμ大γISयδ大上一YnशτघωρEqयπघYVο为hm为不ιढUCφ他डαष1eझρGCछ他खपμQtτ之मHBντυभAUघढभZyहज了णτQfफघधटHl了तωQvσοcCमν上我xsω一是मFyυξध是छ89धखδak来ρδsi之是बγJgηथ们JbκभφR1一बशκ0b以不μCSμζषरदYIवεTy来上αQ0不σφXgझ有在5eυठQR有ζणघQIε为中Giकष之ढυUiढभIAσ在तFMωटल了Kmय的थσ4fरε为οVGद是त不κhOथλφWhथ在तदιBEक这ψJC人सkcφνER是人在U9υसbXξझध为भYv中भDQλξτwq是ट大这Tkदघ8Hवσपव在NFξ大η中ट0cζम不不Wgपτढ们个kfढνAy上οच人们lMडφTj大ल有यζUy大ध的θठQhδ一为JX一षγधठQRड来थ以4Uछ一XkυठवNtησβतYU以ष们VmχचरषοSS我ο的gfκτζवपXCणδRI有छXVजणχ在तRHखβ人Mzλ来oZहतपθE1了चकδJjढगοPyबनβR7αघKT是这他在Ym人तखQgφ是ल9PमρचछElपα以hbηखθडAEगथφolख我αEDसझ0gतηURσ为0Mछ在γ个UAरठमαठ==घष上ग", zhT1dek_C8[3]),
+    bpSE5Y_mzu("cjतζcQफचजचदKU他θVgυलRlσρ是ढष0/αघψOQब之लοZM们了जηGSψτI6यघοहमPl不ηVDψνξφfWकधथयsKχक为बChξव的一8f人在οCk个在ESρछ了上AhणγETटθδHCस来不δφQo不这ν人ढCwठवघ5Sजश一λζUkलπω9Jच以这गφAC个करτFh中来प为ICγडVlτ的नशVG不以oiγθMSबग他IUटνχशIA之ν中φभMn是ग我UUरसबγwmधघभKQλतमशBD我在σ大TS大λY2个ο在Njι他plο不fSο人xLग个ξर来RxρयZZ是ρशYw个ν是शBe我चξडहAlबλθsDटस一ढLVζερAqε我लγसLRξαथβ1vफβυधχDGθसθ个们Ihज有以个SUεदयम以hMदμ这中bTυ以δAr在लधθDWथμoNद之DSχ在मल4MवपठथकbF我ढκज8o我γιχ中UV不गZB的झ了गιbF之εQCझढναGWषल在d0了पमenव来ढभρ85षρलPiपζνpGनδ一上不Rl们οεलदsDभψαचωDFμ中ηQMρ上上RxणझघoOर一तणγJBथιλξ4sπघफ了LW人上了छYb这चO2लκतII之णVF们लIeδकηOSκततMwप上κDG之θ是大NYनसcmζ我ठλNYυणπणbEθ上नπ的4u中ν有UD们म不Iu中ντIhव不人Aoह个चM2之णp5लहणμκenनφd9以ψ上们दdnय个的γιsDοग不的हA1षफष们बOo是ढλ中有xP了ξn7टम+tबργबषyzατwaιघटjpदγ的的dJ之छखO+了यवफχvbमφशखρtFπवघZRभ他BIरψηθζAT有स4iघ一हतDi上थ我8gφझठ大WCतल在有了cXह个的Rgकम不tgζवζFB以षθ的gnηργIxछछ是ठdDत一VWढ这यहc6大中以ξभaxफ不νMgघ在Hhδξधψtmβχव之υQw不हब是来khγοथSRσफ我来1eशθछषहRRटझढज4eड来υLRτदथUuεझचηεImτχνκझpaμल这ClηठφlF在नरRxεलη是tKγछKz一来ζQrठ了ω的κH2ω来J6शβ他टλZ3भडतJVत之लeRθपtpन大च不लHRघωहξχgk大ठ来पPl以中R9κणभfAχ的kCभ来λगUHε中9pध上为fWρलtD这ηυतTF上यफMeय的WGसιλυwXश是κमοYSपठψsmधतमIgηεoRβ大dDगय来5T来πAVजπζNvरυढ们中AF之रढधτ4eघ了चρbXρξμFlοपरθSWढο是o7有γNGφलμ在τMW在τतfWरγcpचछ来为फd2प我शयgHह不जJQ他य是5z有γFwवλI6धटLBρδधभυMmηरश之θOiछδο他चxP了τ中δαWFयमεα大MEखयढονAUρ在झUQχ个φκणAh不पढ一ρVbछतBxγωρ们थkD了रπBAदम之τZSरμθ不HmψझφयξxLकω不पथZR我ढσगBI了οATट中फξफ4iथ有θξझDi的了8gω大हφसcnλψ大以5YηपIk以रजφIsथ他बFFκρ0lαπχहρKH上这们是4CθυगGWटकझयd0ιτचenशमर他9pβψfSझदν之JM们δसιCh是झण1B们तJUβसपk9μटcjढ的βμcDललMSαβबपFuब是为个中MS这ह来RNψरνCAखζ这==डबत", zhT1dek_C8[4]),
+    bpSE5Y_mzu("KBδवs3ग一这Sjιछष这दYYवझघहSCसवψ以c1α的ι个FgτξβधξZTδरeh为ν不फ中Q3ढचIBतयχष0t大नJlλथR/上द以टχWRχजED上व之Uk中一9JκζRw之βखधkqधठζ来BmλतτιRl他ηकbl中यEBनβσलसLUछξखlBχम上गTSωकλZbμ中λभनdWοσपदlNμणbnγठφZMव大Z1υण大w5षथαशSWχ了RWηठDQλρδM5लξθO3धνट了不Zx之σ个κμIi我ηचIPद人TRβπI+们μCm了फ为ξB4ζοκ中KDतजgiश不Y2νबभझतRjρछοणcj这λEQ一बτVD中了为डAwρटφ上K1有झब有टFI是ρL1न的पदhoξ这SgडढEB一π的之यGSढφन以νAXδγ为H3स中ρgzρζεGDβपke了个ध在eRझलμt0भध他δσcwकι中ν我gXछझ他PX不νβRi来们ψFHशγघ这षhjय了न中नQy上भηδदMIαछIwφ中个5L人डGRव上पBnβ来BA上ψकMG为来AAσरshφ上भEEधσβν5S来人bhβ们ιबय9IψवηपYQ人α个च在BCζ是बज一Ay是ν他णνY0中一झωरNzγ大αζ这wK有来θ不bi个上जμIEसथIh大κ之Jaσ有βD2人为ηQY个σ在कHG的ο我9wτभWAलσγठZRι来了我रJDδरद个s/छठD2τ一य个0sν之द不μDm上थνफαhaरपगख上Fhवद的人U4त在बT0χ们d+तशशκभAFνβιNvβ以हαEj不是तE2र以यκ了LU的ωsBल为Lgफ人द在बcMगωथεCmξδφIjक上人षMD大有之ब0Yζψभ个λPDρ之αhMझछरKR一之U8ηदμ是ιDyφढज之以FWघणथWEθघVwखι上来WAनλथYdφαघa3βοθμφh+ष以他टQzखधड0CθοLk我बξ大JC个थοढ来Xx在以IYβधव不Skच我स这BSη来डεSQटδषहEhणबXGफडαθ为1S我一यbhयट9Iभद上भYU一πkEरधπ不शA2ल人个了ढJx以ζ之यहdWρतlNबणबKjपभφκMOαπछMh了घt+γ是上以υSCतψप之FMξαVS是त这E2中的Fw上θवYAषघψफaxछघम人Uf个φ有不तJTकडझτνkAतκ来θमLnलषtFωककβEy以घ他λxnψछय不了BA了不ψMG有υAEथ我ρ5vρढVGω在णR4之βξωbh人的ξμ9IμपJQσचमशxGछसηαViμश不हणV/ανMiρजबपवwZβणOyγणYaयξφJh人ιμAlτιघSmकभQFछखεHA个झIR大गσηPlतηकJcα人中γ为Kg们ν01大डशBx是ηरVr人मbw们ι为4OझहθV1之कλφRNλगभBA的为MG我υध个υAE在टटυश5vζτछECगखप我们E6डशυपघO1大为以ठछhGन他νघJgψ了xQगड之हTyहभδ0yथ的ढ上NCह个VNभγc3他यग以Yhत我Bjζशok了为不Tiव一Vt是णठVyशटsIम他ढजcgβघλ以Ydωछδεतa3त这तμh+रठQ2εγωघ1Bψιξढरbwटγ以लस4Oट大有μधVxξघचधAIνρRl以有有ZB有人Dhδ一ιλ0qत这चतη", zhT1dek_C8[5]),
+    bpSE5Y_mzu("VSठडFD中थPlβνλ0sθ是खरघJjटτεFc一घछ在F2ηιECढशधHSξरβQTκध有MA来ιठωQGκρ是नWVτψ是ιछYjकफचपcl为δथचबEIηव我BwसγξoEटसUnय以ξ了是NYय有ιψaHष为κxyλतभYwδ大φ之छggψभκD1वσ上1AδयξमaCपख他क中Y8他हORभढμω09上शORψफडE6τज人AWषव了kTल人बBX在ρ以0Gन为Jz们ψρखUdलαfyνबदμजorζν个υ的BGक上不来ζhHठκथणसcUο以Vz他为ψξEh不β一λJbछचषचWBνλγRGμशQwत人ψठभMuυठज之Unσ这θτNYदछ来这aD为मस不k8लυJ2υ人βρनZPरडTQधψहθ有gHभजनφφZjθ来णw/γ了bRθ以η来之k9ट个डNRπνबsw的有φVDरर了त在pQ们थPFησUvछकह我有PX大यQIप上QiχρQhαनVkλνγम上JHξफध上मcU我गघ我γVz之थ有Eh这为ययωJbω来भCBग有JJठκद他S0大μκस以YMजτ的上खFCρलहरYW一ο的οनKyष有g7ल人चLAπζJtυκRAξφhP他ρणKT大ωभप我oyलज有तबKwतυसछभQ8个च大खοOQभज大लιQ/ιछζ这来TjξονढoTξνdRब个wu们षOjल人धhcठζषTy人λ中的8r的πदωdWψβhHफ是ι我ξcUहσVzζ为的सV1धयwfसटलδφclडजτ个EIπ是们षथBwφδνpNपचθψFHरθ之ष们MQनभट是Jz的गशνχM5म的JR了सणम一krμष上ωDgयशχεhTढझLjधकξψ是A3शιR1ι不थणFyλνβel大पB2धτAXεद人QTषमOFχμ一我他8hझιरPzफच我ωμhUदοत是दTD在在μQhफ是的不रPxष在不φYOρलμPg大ध他θt7为पहGxहचझITभρκξFx以人छ5Dζ是फηQVवθ9KडλEX是为人NFछ之我οaDωξI7αनL0这ψष的wg上दζA0लχτम是wOखφTHछξय中V5थξbVμश是υडE3了人φNBτπφRc的这θRDठढpXμβQjतδοZtप中fnजजRUथ在गH2φ人νt+ωωभπजdUत们εद来tH不थκiOνकय之दCK了छधनणtO们πρ上为rCτ上πτWKξबझमmCफα我/qεψथयj9χड9I他गत了ryटमkPδ以uKठभφη6U上的大ycटयλद7PεεGkπघZo是νषह3+प不ड我ξlPफरभχWKसλμ8K来जυ在νji不फहज+NηξठXqदιतξwuτख人धTxξ为是οबc4पγεभzbचडडचष88中中कWXιοम8bबζ人डrI我人来来टiOतभ+Lοबmeबतρμ我rSεθμchθζशVHωलघωLQथψoEλणUnωαशMRδ个जι了Lnव是γπ人w1的在ग不ωJh中छ来中λg3是以DFघε9KψνIyυ有E4了ρ个OR是来τβAw一यNhι我V2大个VT了मxWχननηधJhझγδटwnτफफगNi之भ上AOθपα个Sz之中ιषYi在βξORαμ这नYGबυलठJQψεकωQxकलμ的χXlιछωधdbτधψ上RVδचFGρदνसरTk之在ढरαYEρनθFzधγथ中β0cφ他दम这QnतकxyυयσY0ηटλ中बws不ξ在一μCwη以hU这ठIyξψErपωχ了णLAβ上मY/धπPw中一हQ3ψझरढबVTτδοVRछγδदJFफ了γυlgछ这Jwδक我ह==थष他τ", zhT1dek_C8[6]),
+    bpSE5Y_mzu("MFσψ人了大Iiकथ来YDψ人人सcyखपLFγजNPटठन这Mj来ω上लघ4FवतEgηठohωι这CDदट们ठVaष的的ψUwयψभBBकιVUτ他ξ中JCψफQgषणε大पgTξ个个तORगβ人hGकझε们为QHदढZn个कοUC中बबAX之भκ为σDEψधσ是wv在मध以LSγπधचλ80有他不这En一फ为Yqα一δथपHD我他जψ9J上δरλeFतघλरदApयछ一人घNDरψ这YyसλφPwतबοETφαट了ηZTβγ0J有νढषCkमचलswφढ他们छBzगτοψमM8सचFgजखBcह以मVUवιVN了षρदDkगδ的8Tρ来छहIxनσsvवοQCय之IvतखFSरदκभdR了गहθS0तणजफγ4+了नρषबPjप有ट5xρढरSH这घ为在λYwद这वHTβζ们मयYHधα的这PVφω们षπko他的ο上Sm为χल的खR3चτeAκ这बमFHशपσπणI3δ以有MHहπफ我यAxβσ为我σ8g之डझωGSतफशχषFXसβπ为WlωωसUZमχκVVरध大नhDथवS0झणमचZWθय为是MB个δससठk4上ξβFSणκथψYxνρढρβESट他有UEजαचιSQक我εt3ढψλeT在αबM4धαGXदणदचवY7गα这我Gjοजψद们4t有झeB以द他个सdsछδψYCलεσक0x他ρरझeFσξω有JLब以ζटMSसषμYQνम我झEAθ有χण个o5छथHDहकखIWυबβαQkसθ他πgZषकνGwξηxY的ι之S1我खनwDτभडJw以घवotττDCσαMiतζजβडUH是म上们ζRR来φQkγ中कIm了तछeT一ज以g/व这来EV上之ψ他πx+κβवVHमचoH中रηθ在MVφशρ来Fsπ人डयथJy了वEj是φरहνO0ठझβα5AघडNiभ以βιcBछयCB是ιν一8mζभφधSSα一भमχNe来这झ人U0ηοप这5cजमब他Ekι们上रlf在भTUτरcY为θχतJA之αधβ这gt是σDiणघνI0这τ我UHνणRRशζवθQkमνIm人在eTξ来在छg/धत了EV之γयx+स为VHठζεδ他oH了们θωMVम们们नसFsκοJy中भEj以的नKF他नδ有NBट一MTζ大之μwTεοछRhρ他89हρηठयDDकरतkWपधटUUकθγटशUIनतμ的BVρझυ有ड5E之来τσशWkκ不ψपθcFσतd0来जठरठFs中οDjξद8r以ο不UCजπwfθ他在SCοठणभEv一भγσषNzग这γlbख的是f3ρηझtzफटVHζ这ιयIVढणaxभशp9是घडd2之φ了णα1+व为这μτePπसβपσmJξλθnN以οभλοe4हखκzL了छसष为P4ड来是υखsNοश一有ξXv是是गबtAζ之了Ckमδ个0vνζθWv他了θ96χ们भशच6v为以क他ω0KरοTr中ξ我भνuPगσ不μCeख这+m的ξmoφ来सगrvफπPiपझजस我gN他वlxघषrfωε是GH在ट我8Iι是शयKNνκगज是gIυ有来OUαखμ个+p中一ब了3dβस他来gaθखनκUkड这LDझय我之VAभयψपκCA大ठQh我बSSκषपζ15上थU1以खथφMm是व之फDEγρ大ρt0छ了ι大ψYFयρteδबfl了θυκ上w4ξथपCDटजMpथρem上बξ我lRह的DAथβजs4是βψυसPCρठचkkणपBzचιफhUझ人वलघETισबRDझ人फजUhωζph不以个च中YH为了个k=ढσ是रτ", zhT1dek_C8[7]),
+    bpSE5Y_mzu("Bmθβ在15दल中dWभρजο一Z8αδलγρYF以वखwtσξधdz中αφहQYघझझ不ACठ这प0I以डOEसच5TरχयχS0θ不λ大9ZφαfEबπ中5LनमरणχSQψणh7τरनθ以HGγगαड1Z有来ररZ3ह人पग不ZJμदवडजR3ω为86σतQy是一लE+η个ωफ上AD人चζतlZथφ为Kiवष为有δtBηदJBम们डशथxIψφaBπछρसडwP之κ个Inρभषthπιξ是BVरι大他4m为ढκNg中ठ有υषAZ来有चGy以υ在डβsEप我ननNV大यε们ι0SटखψγQ0थलρδζAUठसVRλयρψकV6च来रδωWAτखιधη4r们是थ上υZj们ηUQ中षशध我ckव个Z+γευ了ωbVλणινUQδιणDxड大EN们中一上Jg这εय0mकरडCTπη他घγ1LιजAS为खपZ7ढमβ我他En为थलlsडβμεYVभμZWलकभι个KDठλgl一तνξ这OAξनηπcLटιA3झ在的中φkh这τसFE大θυ1Qφ这ηοdHαξELδमशWEμदφVb之ज有DEξवबब为d7我डνURच的षldषधIHτν他xNιεट一Hjबढl7是γ个RX来是णτझQeस的ηχλEzशψAY大डधεLgωबcvय在τश一N0डटसηहUV有πVCγणds有ωबनκM1之βεZWηमζBR了ψ这णJp有फच以dyडझσoLαड的Aj来झठवπxNकदZhζछουκpl他一ठ有dGλ们λ一Yhतψ这了χb3他τxtσलGC我大यοV3ωβ上χदLFषσpE的σ一emω这tU一的ARαηत的pRडυSyणभczικδ中Bg们तढयEQσभफφLgशδζ4dλ的fhροधZRδ他在ZAτπट来ADदπβटEAι中QPगν的这egछ我टcW们ζα以e2ρघωζlg们धT3जजशखlNशμणथझe3β们以ZVठ上他τRU了धξUQनχπXkव大hhθ在लWR中ψकठरgv上य了这一SCχरQIरतP2कशसρtJυ之bS们在य他रpg他κ一aB们以YCधψMgβτधमpPहथथωκBUγभफघ51सत在बVA了他tRμभG3α他रश大AHघ人ट来Jzय人ζωU6क来TFυबषU8σवπγJQσαUeछυ的是Bjत们之YDυ一CFυβ一रtM为झबTUघ有च他υ8eκचरεζEBच大बχछIS中δV3ψ不बdRवγAXनटρBEकभτभem们们上tU的रbV中λगωथV1的χQSझργ8/टट一झDTφ我Ad中δτelटζ9Yφचच个不KlतιषοkEμ个不Xn以टखωρxJठμघ有Qnफχρ一t8为न大झ了BRखथषJpनξφνd0βसρदRK有षσλKTξटYB人大ψP1δζ9Iत为χak人णछझνAUदξνलनVQटξबαη8Pज我दDCवξ他तUL我是Zgशछγ人g7θलCRοलRDडचElचछk9在यJWणह59पठ上ο们QXιलVZ大η以ζ他ek他ληलJYγयभछढGE中人IdβθκघXhζχडभल4lκमह来νJTघωλ58फ不η们GB大之δλठIWयυजमεByιρद一个MyαवMAλगनoyखβ是Y2ιβU3धतठLgθ以णωFZभफEAπρ9P他ψωम们IXहध大Amρ中CFξγठ1u人η", zhT1dek_C8[8]),
+    bpSE5Y_mzu("WUश有不他IgωगखछMAद我ढछ之NIιλ了αहWmशवπठ04डτξλJRωषब中भwsट中PDढखIaघπ我χfEξηdPεφ之BUζ们为फAUμ为f3来कष一上lH一षFAεव人91जभξζJg上दA0们之JkτछशχIS中οC1β之FS个खJgοψशQxथ不OBढε92α有μκ有OSο大wlछवτचωdyαब人θ上piनηC3εझψ一रET人μडc0नφद有有Adझσठ上以Anνणφ的VoयεφεW1मलघhBφट的टaUफ不ωRn来个बκFzοβMiε们बKHψχdXγतfkभ这ρθRvασHxमपखxgκप人Fhसω了E5一तहdT人υsjυ个HFख的πχथVH我φNy不αMQनझ人μशLQ个有kxγछभηबCFφभढοQZघπरInπξχ8Rθघζ了τdGγघρωhsत的टαιEQωन在FEकθοचतU2个ζωझτ1m个个ωμ一SDσξηEj之शπGi我डबμξkA的धसछbWघचEZ了λδβFSλत我εθIYκनοश为Pj我षघwQगप来रXnठद有8FμडγहFwव有kyठ之Ixद中φιowφबGl他π上人8T人नद来b0टदEDठढशκγLB们घणहM9टक上EhशचUNωα个大ζQVαλχτह0Yठγκख来WU这णफJs了ρछf0श人AJम他ε他Fmमβ他χ17नभβSBधज4Bकष为οगNB为ηνढχ8rμβδडαFm们थβF4रशYiचबVrढ他यοचYG的भσ个kBεκकTwमशव以AMद人दWWφ他J+ν是ρb1中这hx之रHFढठत了βpXχηκX2चσοsYप之cH以नल了BUδπ这γχa3ο有的YB中टजढYg是κझसduπσωNQθπsJचχHR个ठ大lOट他ρDAιο的4pबखDQ上在फ8HणυथOCफ上षηIzτझV1λωφ大pNε这ζ不之V1他रVP一णथηPj们दभघwQηχXnद这σ8F他以ιGgζ以οभkz他们Klψτhs的छ我WWυम人कtjτझξFTρθk6π一λτयCiθψγJvध上VCλξहNOजψμ来Inहचन8R大了तनकdGχल这hsθमδघDQथηο有οFHभधछUS上ρξh7ζडपξVUθसθ以4IωηdUढ中णR0पयDw了बसय8Bब的φशगCV在ν0cचठ在CwωलYbψतTGζρλ8MखझधKUυβ是人जRTयब中ρपRVपα人hxδफरφWRकζR6μधPAωवιIX有以PBतχA7我之CA来φथ之hCगρहEl为τUZ之जφद中ZWφξछ了N8χसεηमdkसιφwk的人PGढι17δλSEοधच4w在了यत他KA为中μτ以Mt的ρनचW1人छBcν一धcx中τμxYसफω这खRl在有MQ为श的ω的Q3सषलथ8NσरZ1他न是xzπχfkटषयε人B4我ψσपकVTκडशψk5नढξढतckनडFFκ他来eTटठ是कsyथμषεBxफ上tC我θतElगσ了上VuυयटBAश是षλ8Uगट他AD为दचडबN2च一νπB3υεग中4EझζετωRG中τN5φण上ठघfVफγखεF/ω上εषछHn大νμर1J我धठब他SR不धτεयFWμगυबUlशमε他VbडχXm一हधIF有δल一Mhणधहध在0wψλम是न", zhT1dek_C8[9]),
+    bpSE5Y_mzu("Ly个θ我हQKवशC0是εδ之τMSनχदछτBzजढशशढ4Aस了Bx之ठψJI在यπeGठहφliभηधछYgबω中τwJ是εκAhषठγष了gXηभGlणषणλhMतषAE以υλ以g0的ισसTAछ这Un个ηShθ为是4Sκ为在aWणχफτξ4Zα人न我Eyπεωσछt9π他सλκH0πωδυINफवQAह了tW了μλV2णθτUBझवLSदझषगसkGनजचθ有Flथχझम4UशनयरHT来人ιषAP为नσπExυφथsx之हGQυζर们θI7我नJ1υसप4k一बमοKB为我हझबgXοφγγ上Ghθख中QDझ不Qw为कl4हशAAशχβपच0wपοHTटह这πld中个झकcQ大रν以शMdझ有DS人一मटη8F个的ढEiβ在一中हYwυटeE以μYOप了घतWVμनIZगν以有ehρ之φच有sMξ的在是υNXτशषR1न中φJxरच们1CβιढMR大α8Aबव一BwσहमपιIhणκε以NkχखशlbवψLzοοयI6म人MBιसजQDचथदयσQw个धβ是लl4以चसξ中TE有षडσ我JzιदFTεभ的ριNdक这cQ我ण大ठMdखυDSλन8F一υEiζवθ这υYw不बeE个डजकZSπवझहF1δठFN之大षBW了这η个Qo大φधψघDG个झζ这मtiθधथλ为YRसκ为δs2छ为नK0人α我0nहαघ我HAσοनγड0mι以τηगBEχηखVbपπUUहφx0γठπUl以थ1P大ठBw大τ在这EHदडथνसPCढदβεULधसIwशधκषछYiप在कCQघडगपMJθजधTEφηदkpघशब之大Sgडव以cEमιψLGसα我ιटwT们ν大WRखबVNπफमbHζ们在BD我फRAट是षν0aβवcXχγφ为上8lψपRjभत大wJ中ιMzχभφκtyठहνखεBnγρखZw的人DHखधपBC的θकV1ष了VNχ个上υठDE在ढλA8म有ε们तQj为श是Uy中ब之χEDवश4uαε来ιSFझη个षIzभठ他AU了फωlgडछβदοAjψदमεQLεयनचTRφηβNW在υ我णdDधβझयσ9Nज了शσbHδदवτBD在α这ढRAछδयय0a在在τ是cTन一为ठछoC上这ठतFnथξαpr了खफ之VUφवNiशμजτ个YkτηlHढωड这कRjσθπU9खनछRxभξ人υस0u上कजπιaS人βκRSοजघψHCψब一tq这फ有प他BmवτJEलψλψa3φसη个的sdπ人D1लमλ了MTहबTRगयYDदनλ之θRxरμ大8bωभधगπAjμखhnζ这一bHιकθ了BD个λαοχRH来डगखlTनशJT的一MJचυμUkवσझpBध大Kj有फयιMFηजचGn大ο们以N6人之ι为घfQनचζडkC个φछ个为ZRदφ我ξguभ上aQ他धl4जलधTE人κसIQजαστरEzघधफ有sJ是上XVροkiρढRVढ上पR9ξηfT中κझख中It之个eTνकयरlgपχδπ大JgιतRb大之εपπE3खमथxu之मघजडbg中为ρघλ0aनγरcXλ有μ8oलचBwसभχषUA上νठम之AQ中υबच在otख大这म的LAωधνwU大ξ上Ah一中फनADगवEQगठखιशUKभझ以不χbiणतष的चMl来εRQ人τρ有中==ज这他是ν", zhT1dek_C8[10]),
+}
+
+local function uaiUbdy6zQ(x) return x * x - 2 * x + 1 end
+local function xkFm7XDKAs(a, b, c) return a * b + c end
+local function FNslfd9SaU(n) local r = 1 for i = 1, n do r = r * i end return r end
+local function NnFSTvph0I(n) local s = 0 for i = 1, n do s = s + i end return s end
+local function WnfItIV9GH(a, b) return (a + b) * 3 % 7 end
+local function GqXTct4oVu(s) return s:upper() end
+
+local T5sJZeG3w9 = table.concat(ADySKaLQUW)
+for uZgkfIzCtm = 0, 16 do
+    T5sJZeG3w9 = T5sJZeG3w9:gsub("_PGX_S_" .. uZgkfIzCtm .. "_", function() return "S8xkb4gt45[" .. uZgkfIzCtm .. "]" end)
+end
+
+local __pgx_loader = loadstring(T5sJZeG3w9)
+if __pgx_loader then __pgx_loader() end
